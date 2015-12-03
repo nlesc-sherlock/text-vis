@@ -1,0 +1,5 @@
+wordcloud
+cython
+numpy
+pillow
+Image
