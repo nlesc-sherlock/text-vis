@@ -6,6 +6,7 @@ from PIL import Image
 import os
 from os.path import join, getsize
 import sys
+import re
 
 corpus_text = ""
 for root, dirs, files in os.walk(sys.argv[1]):
@@ -16,7 +17,8 @@ for root, dirs, files in os.walk(sys.argv[1]):
         text = text + l
       wordcloud = WordCloud().generate(text)
       wordcloud = WordCloud(max_font_size=40, relative_scaling=.5).generate(text)
-      wordcloud.to_file(os.path.join(sys.argv[2], fn + "-wordcloud.png"))
+      wordcloud.to_file(os.path.join(sys.argv[2], \
+        root.replace("/","-") + '-' + fn + "-wordcloud.png"))
       corpus_text = corpus_text + text
 
 wordcloud = WordCloud().generate(corpus_text)
