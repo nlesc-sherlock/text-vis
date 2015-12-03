@@ -15,12 +15,20 @@ for root, dirs, files in os.walk(sys.argv[1]):
       text = ""
       for l in f.readlines():
         text = text + l
-      wordcloud = WordCloud().generate(text)
-      wordcloud = WordCloud(max_font_size=40, relative_scaling=.5).generate(text)
-      wordcloud.to_file(os.path.join(sys.argv[2], \
-        root.replace("/","-") + '-' + fn + "-wordcloud.png"))
-      corpus_text = corpus_text + text
+      if text:
+        try:
+          wordcloud = WordCloud().generate(text)
+          wordcloud = WordCloud(max_font_size=40, relative_scaling=.5).generate(text)
+          wordcloud.to_file(os.path.join(sys.argv[2], \
+            root.replace("/","-") + '-' + fn + "-wordcloud.png"))
+          corpus_text = corpus_text + text
+        except:
+          pass
 
-wordcloud = WordCloud().generate(corpus_text)
-wordcloud = WordCloud(max_font_size=40, relative_scaling=.5).generate(corpus_text)
-wordcloud.to_file(os.path.join(sys.argv[2], "ALL-wordcloud.png"))
+if corpus_text:
+  try:
+    wordcloud = WordCloud().generate(corpus_text)
+    wordcloud = WordCloud(max_font_size=40, relative_scaling=.5).generate(corpus_text)
+    wordcloud.to_file(os.path.join(sys.argv[2], "ALL-wordcloud.png"))
+  except:
+    pass
